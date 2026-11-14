@@ -2790,7 +2790,11 @@ def run_predict_only(args: argparse.Namespace) -> None:
         f"unet_folds={len(ckpt_paths)} | lgb_boosters={len(booster_paths)}"
     )
     eval_models = [load_fp16_model_for_eval(p, device) for p in ckpt_paths]
-    fold_boosters = [lgb.Booster(model_file=p) for p in booster_paths]
+    fold_boosters = []
+    for p in booster_paths:
+        # Read via text mode so Windows CRLF checkouts normalize cleanly to LF for LightGBM
+        with open(p, "r", encoding="utf-8") as bf:
+            fold_boosters.append(lgb.Booster(model_str=bf.read()))
 
     tmp_work = os.path.join(out_dir, "_tmp_predict_work") if args.dry_run else None
     if args.dry_run:
