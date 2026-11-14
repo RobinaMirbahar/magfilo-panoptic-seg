@@ -38,7 +38,7 @@ python train_magfilo_panoptic.py \
 jupyter notebook pipeline.ipynb
 ```
 
-To retrain all 3 observation-date-grouped folds, OOF LightGBM calibrators, and test predictions from scratch (`~3.3 hours` on 2x NVIDIA Tesla T4 GPUs):
+To retrain all 3 observation-date-grouped folds, OOF LightGBM calibrators, and test predictions from scratch (`~3.3 hours` on 1x NVIDIA Tesla T4 GPU):
 
 ```bash
 python train_magfilo_panoptic.py \
@@ -62,7 +62,7 @@ python train_magfilo_panoptic.py \
    * Trained with boundary-upweighted `BCE + SoftDice` (`3x` pixel weight inside `y_sep` corridors) plus `0.25 * soft_clDice` centerline topology preservation (Shit et al., *CVPR* 2021).
 
 4. **Stage H: Laminar Component Tree & Exact Bottom-Up Tree-DP (`src/magfilo_panoptic/postprocessing.py`)**
-   * Forms effective probability `P_eff = clip(0.75 P_fg + 0.25 P_spine - 0.35 P_sep, 0, 1)`, extracts a 7-superlevel laminar component tree (`area >= 120 px`), rejects compact low-aspect umbral sunspots, scores each candidate's expected PQ contribution `u_hat(c)` over 26 geometric/photometric features via 3-fold LightGBM, and solves exact bottom-up Tree-DP over pairwise-disjoint antichains maximizing `sum(u_hat(c) - tau*)` (`tau* = 0.205`).
+   * Forms effective probability `P_eff = clip(0.75 P_fg + 0.25 P_spine - 0.35 P_sep, 0, 1)`, extracts a 7-superlevel laminar component tree (`area >= 120 px`), rejects compact low-aspect umbral sunspots, scores each candidate's expected PQ contribution `u_hat(c)` over 31 geometric/photometric features via 3-fold LightGBM, and solves exact bottom-up Tree-DP over pairwise-disjoint antichains maximizing `sum(u_hat(c) - tau*)` (`tau* = 0.205`).
 
 ---
 
@@ -127,8 +127,11 @@ magfilo-panoptic-seg/
 
 ## References & Acknowledgment
 
-1. A. Ahmadzadeh et al., *"MAGFiLO: Manually Annotated GONG Filaments from H-Alpha Observations"*, *Scientific Data*, vol. 11, 2024, doi:[10.1038/s41597-024-03876-y](https://doi.org/10.1038/s41597-024-03876-y).
-2. S. Shit et al., *"clDice - a Novel Topology-Preserving Loss Function for Tubular Structure Segmentation"*, *IEEE/CVF CVPR*, 2021.
-3. A. Kirillov et al., *"Panoptic Segmentation"*, *IEEE/CVF CVPR*, 2019.
+1. A. Ahmadzadeh et al., *"A dataset of manually annotated filaments from H-alpha observations"*, *Nature Scientific Data*, vol. 11, art. 1031, 2024, doi:[10.1038/s41597-024-03876-y](https://doi.org/10.1038/s41597-024-03876-y).
+2. A. Ahmadzadeh, D. J. Kempton, Q. Li, and A. A. Pevtsov, *"Solar Filament Segmentation Challenge 2026"*, Kaggle, 2026, [https://www.kaggle.com/competitions/filament-segmentation-2026](https://www.kaggle.com/competitions/filament-segmentation-2026).
+3. S. Shit et al., *"clDice - a Novel Topology-Preserving Loss Function for Tubular Structure Segmentation"*, *IEEE/CVF CVPR*, 2021.
+4. A. Kirillov et al., *"Panoptic Segmentation"*, *IEEE/CVF CVPR*, 2019.
 
-This work utilizes GONG data obtained by the NSO Integrated Synoptic Program, managed by the National Solar Observatory, which is operated by the Association of Universities for Research in Astronomy (AURA), Inc. under a cooperative agreement with the National Science Foundation and with contribution from the National Oceanic and Atmospheric Administration. The Filament Segmentation Challenge 2026 is partially supported by the U.S. National Science Foundation (NSF) under Grant Nos. 2209912, 2433781, and 2511630, and sponsored by the NSF National Solar Observatory (NSO).
+This work utilizes GONG data obtained by the NSO Integrated Synoptic Program, managed by the National Solar Observatory, which is operated by the Association of Universities for Research in Astronomy (AURA), Inc. under a cooperative agreement with the National Science Foundation and with contribution from the National Oceanic and Atmospheric Administration. The GONG network of instruments is hosted by the Big Bear Solar Observatory, High Altitude Observatory, Learmonth Solar Observatory, Udaipur Solar Observatory, Instituto de Astrofísica de Canarias, and Cerro Tololo Interamerican Observatory.
+
+The organization of the Filament Segmentation Challenge 2026 is partially supported by the U.S. National Science Foundation (NSF) under Grant No. 2209912 and 2433781, directorate for Computer and Information Science and Engineering (CSE), and Office of Advanced Cyberinfrastructure (OAC), and Grant No. 2511630, AST Division Of Astronomical Sciences and MPS Directorate for Mathematical and Physical Sciences, and sponsored by the U.S. National Science Foundation (NSF) National Solar Observatory (NSO).
