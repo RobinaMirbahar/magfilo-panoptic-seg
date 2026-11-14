@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*$py.class
+dry_run_out/
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
