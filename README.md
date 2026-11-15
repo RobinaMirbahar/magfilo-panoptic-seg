@@ -12,6 +12,13 @@ End-to-end modular Python & PyTorch repository implementing a three-stage astrop
 
 All trained neural fold checkpoints (`float16`, `22.61 MB` each) and date-grouped LightGBM expected-PQ boosters are stored directly in [`./weights/`](weights/) so the judging committee can reproduce every test prediction via [`pipeline.ipynb`](pipeline.ipynb) or `train_magfilo_panoptic.py --predict-only` **without retraining**.
 
+### Scientific Report, Visual Graphic Guide & 1080p Explainer Video (`./docs/`)
+* **[`01_Scientific_Paper_MAGFiLO_Solar_Filament_2026.pdf`](docs/01_Scientific_Paper_MAGFiLO_Solar_Filament_2026.pdf)** — Formal 4-Page Scientific Report (LaTeX/IEEE format).
+* **[`02_Visual_Comic_Guide_MAGFiLO_Solar_Filament_2026.pdf`](docs/02_Visual_Comic_Guide_MAGFiLO_Solar_Filament_2026.pdf)** — Illustrated 4-Page A4 Vector Graphic-Story Companion.
+* **[`03_Explainer_Video_MAGFiLO_Solar_Filament_1080p.mp4`](docs/03_Explainer_Video_MAGFiLO_Solar_Filament_1080p.mp4)** + **[`04_Video_Narration_Guide.md`](docs/04_Video_Narration_Guide.md)** — 1920x1080 H.264 Tree-DP Telemetry Sweep Video & Voice-Over Script.
+
+![MAGFiLO Visual Graphic-Story Spread](docs/MAGFiLO_Comic_Spread_1_2.png)
+
 ---
 
 ## Quick Start: Zero-Retrain Reproduction
