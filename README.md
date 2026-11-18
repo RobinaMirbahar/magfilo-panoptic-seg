@@ -57,9 +57,7 @@ python train_magfilo_panoptic.py \
 ```
 
 
-### 📐 Color-Coded Astrophysical & Tree-DP Panoptic Pipeline
-> *(🩷 Pink = 2048x2048 GONG H-Alpha Disk & Limb Physics | 💙 Blue = Multi-Head MagfiloPanopticUNet | 💚 Green = Laminar Component-Tree & LightGBM PQ Scorer | 💜 Purple = Optimal Non-Overlapping Panoptic Instances)*
-
+### 📐 Astrophysical & Tree-DP Panoptic Pipeline
 ```mermaid
 flowchart TD
     subgraph Astro ["1. Astrophysical Preprocessing (2048 x 2048)"]
@@ -77,13 +75,6 @@ flowchart TD
         O_Sub["Globally Optimal Non-Overlapping Filament Instances (OOF PQ 0.3252)"]
     end
     A_Disk --> A_Limb --> U_Heads --> T_Cand --> T_LGBM --> O_Sub
-
-    style A_Disk fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    style A_Limb fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
-    style U_Heads fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
-    style T_Cand fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    style T_LGBM fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
-    style O_Sub fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
 ```
 
 ---
