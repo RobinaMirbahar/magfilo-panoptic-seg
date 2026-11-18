@@ -19,8 +19,11 @@ All trained neural fold checkpoints (`float16`, `22.61 MB` each) and date-groupe
 
 ![MAGFiLO Visual Graphic-Story Spread](docs/MAGFiLO_Comic_Spread_1_2.png)
 
----
+> **Author & Architect:** [Robina Mirbahar](https://github.com/RobinaMirbahar) ([Google Developer Expert in Cloud & AI](https://developers.google.com/profile/u/106918534005910641104?utm_campaign=deveco_gdemembers&utm_source=deveco) · Google Cloud Champion Innovator · Co-Author of [*AI Engineering*](https://www.amazon.com/dp/B0GWCZWCF4))  
+> 📚 **Competition & Paper:** [NSF / NSO Solar Filament Segmentation Challenge 2026](https://www.kaggle.com/competitions/filament-segmentation-2026) · [4-Page IEEE Paper PDF](docs/01_Scientific_Paper_MAGFiLO_Solar_Filament_2026.pdf) · [Vector Graphic Story PDF](docs/02_Visual_Comic_Guide_MAGFiLO_Solar_Filament_2026.pdf)  
+> **Core Stack:** PyTorch (MagfiloPanopticUNet), Limb-Corrected GONG H-Alpha Physics (2048x2048), Laminar Component-Tree Dynamic Programming, and LightGBM Expected-PQ Boosters.
 
+---
 ## Quick Start: Zero-Retrain Reproduction
 
 ```bash
@@ -51,6 +54,36 @@ To retrain all 3 observation-date-grouped folds, OOF LightGBM calibrators, and t
 python train_magfilo_panoptic.py \
   --data-root /path/to/MAGFiLO_1.0_Kaggle_2026 \
   --out-dir ./out
+```
+
+
+### 📐 Color-Coded Astrophysical & Tree-DP Panoptic Pipeline
+> *(🩷 Pink = 2048x2048 GONG H-Alpha Disk & Limb Physics | 💙 Blue = Multi-Head MagfiloPanopticUNet | 💚 Green = Laminar Component-Tree & LightGBM PQ Scorer | 💜 Purple = Optimal Non-Overlapping Panoptic Instances)*
+
+```mermaid
+flowchart TD
+    subgraph Astro ["1. Astrophysical Preprocessing (2048 x 2048)"]
+        A_Disk["Full-Disk GONG H-Alpha Observation"]
+        A_Limb["Radial Limb-Darkening Correction & Solar Disk Mask"]
+    end
+    subgraph UNet ["2. Multi-Head Neural Architecture (MagfiloPanopticUNet)"]
+        U_Heads["Dense Foreground, Boundary, Embedding & Orientation Heads"]
+    end
+    subgraph TreeDP ["3. Laminar Component-Tree & Expected-PQ Scoring"]
+        T_Cand["Multi-Threshold Candidate Hierarchy (192x192 RoI)"]
+        T_LGBM["Date-Grouped LightGBM Expected-PQ Booster"]
+    end
+    subgraph DP ["4. Exact Tree Dynamic Programming Selection"]
+        O_Sub["Globally Optimal Non-Overlapping Filament Instances (OOF PQ 0.3252)"]
+    end
+    A_Disk --> A_Limb --> U_Heads --> T_Cand --> T_LGBM --> O_Sub
+
+    style A_Disk fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    style A_Limb fill:#fce7f3,stroke:#db2777,stroke-width:2px,color:#831843
+    style U_Heads fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    style T_Cand fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style T_LGBM fill:#dcfce7,stroke:#16a34a,stroke-width:2px,color:#14532d
+    style O_Sub fill:#f3e8ff,stroke:#9333ea,stroke-width:2px,color:#581c87
 ```
 
 ---
